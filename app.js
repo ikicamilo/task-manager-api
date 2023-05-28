@@ -9,6 +9,11 @@ const path = require("path");
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
+// Swagger
+const SwaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const SwaggerDocument = YAML.load("./swagger.yaml");
+
 // middleware
 app.use(express.static(path.resolve(__dirname, "./public")));
 app.use(express.json());
@@ -20,6 +25,7 @@ app.get("/hello", (req, res) => {
 });
 
 app.use("/api/v1/tasks", tasks);
+app.use("/api-docs", SwaggerUI.serve, SwaggerUI.setup(SwaggerDocument));
 app.use(notFound);
 app.use(errorHandlerMiddleware);
 

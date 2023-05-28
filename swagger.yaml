@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: 03-Task-manager
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://task-manager-api-ikicamilo.onrender.com/api/v1
+    variables: {}
+paths:
+  /tasks:
+    get:
+      tags:
+        - Misc
+      summary: Get all tasks
+      operationId: Getalltasks
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - Misc
+      summary: Create task
+      operationId: Createtask
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreatetaskRequest"
+                - example:
+                    name: Eat
+            example:
+              name: Eat
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /tasks/{id}:
+    get:
+      tags:
+        - Misc
+      summary: Get single task
+      operationId: Getsingletask
+      parameters:
+        - name: id
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 6451da95cc2d1f3498c3fbf9
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - Misc
+      summary: Update task
+      operationId: Updatetask
+      parameters:
+        - name: id
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 6451da95cc2d1f3498c3fbf9
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdatetaskRequest"
+                - example:
+                    name: Run
+                    completed: true
+            example:
+              name: Run
+              completed: true
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+        - Misc
+      summary: Delete task
+      operationId: Deletetask
+      parameters:
+        - name: id
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 647310f406e066003259b826
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    UpdatetaskRequest:
+      title: UpdatetaskRequest
+      required:
+        - name
+        - completed
+      type: object
+      properties:
+        name:
+          type: string
+        completed:
+          type: boolean
+      example:
+        name: Run
+        completed: true
+    CreatetaskRequest:
+      title: CreatetaskRequest
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: Eat
+tags:
+  - name: Misc
+    description: ""
